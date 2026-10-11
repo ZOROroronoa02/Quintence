@@ -1,0 +1,38 @@
+---
+title: "One warehouse, two-day close"
+slug: "unified-finance-reporting"
+client: "Series-B fintech"
+sector: "Fintech"
+year: 2024
+services:
+  - "etl-pipelines"
+  - "bi-dashboards"
+stack:
+  - "Postgres"
+  - "dbt"
+  - "Dagster"
+  - "Metabase"
+  - "Snowflake"
+summary: "Fourteen sources, one warehouse, one definition of revenue ~ the monthly close went from nine days to two."
+anonymized: true
+featured: true
+metrics:
+  - value: "9→2 days"
+    label: "MONTHLY CLOSE"
+  - value: "14"
+    label: "SOURCES UNIFIED"
+  - value: "40 hrs/mo"
+    label: "MANUAL REPORTING REMOVED"
+---
+
+## Challenge
+
+A 60-person fintech closed the books in spreadsheets: Stripe exports, bank statements, and ledger dumps stitched by hand. The monthly close took nine working days, and product, finance, and the board each had a different revenue number.
+
+## Solution
+
+We modeled a single warehouse on dbt and built idempotent Dagster pipelines for 14 sources with data-quality checks and freshness SLAs. A Metabase layer gave every metric one definition. Finance now reviews exceptions instead of assembling data.
+
+## Results
+
+The close dropped from nine days to two. Roughly 40 hours of monthly manual reporting disappeared, and six months in, the warehouse has had zero silent failures ~ problems alert before anyone asks.

@@ -1,0 +1,432 @@
+/**
+ * @file app/globals.css
+ * @description Quintence design tokens (Phase 2 + theming). Light-first with
+ * `.dark` overrides, semantic naming. All color/type/space decisions live in
+ * @theme ~ components must reference tokens, never raw hex or scale values.
+ * Elevation = borders + surface shifts, no shadows.
+ * Class-based dark mode via `@custom-variant dark` (Tailwind v4).
+ */
+
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  /* Light theme (default): logo paper surfaces, near-black ink, steel-blue
+     accents sampled from the wordmark bars (#AACEE7 / #5DA1D3 / #46506C).
+     Primary #1E6CB4 ≈ 5.0:1 on paper ~ AA for text and fills. */
+  --background: #f6f5ef;
+  --foreground: #0a0e14;
+  --card: #ffffff;
+  --card-foreground: #0f172a;
+  --popover: #ffffff;
+  --popover-foreground: #0f172a;
+  --raised: #ece7dd;
+  --overlay: #ece7dd;
+
+  /* Primary accent: deepened logo mid-blue */
+  --primary: #1e6cb4;
+  --primary-foreground: #ffffff;
+  --primary-muted: rgba(30, 108, 180, 0.12);
+
+  /* Secondary accent: logo navy bar */
+  --accent: #46506c;
+  --accent-foreground: #ffffff;
+  --accent-muted: rgba(70, 80, 108, 0.12);
+
+  --secondary: #ece7dd;
+  --secondary-foreground: #0f172a;
+  --muted: #ede9df;
+  --muted-foreground: #475569;
+
+  /* Signal colors ~ dots and status only, never body text */
+  --success: #047857;
+  --warning: #b45309;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  /* Hairline borders: navy-tinted ink; strong for emphasis */
+  --border: rgba(70, 80, 108, 0.16);
+  --border-strong: rgba(70, 80, 108, 0.28);
+  --input: rgba(70, 80, 108, 0.3);
+  --ring: #1e6cb4;
+
+  --radius: 0.5rem;
+
+  color-scheme: light;
+}
+
+.dark {
+  /* Dark theme (brand default): instrument-panel surfaces, steel-blue glow
+     sampled from the wordmark bars. Primary #6CB2E6 ≈ 8.4:1 on base. */
+  --background: #0a0e14;
+  --foreground: #f1f5f9;
+  --card: #0e141e;
+  --card-foreground: #f8fafc;
+  --popover: #0e141e;
+  --popover-foreground: #f8fafc;
+  --raised: #131b29;
+  --overlay: #05080c;
+
+  /* Primary accent: brightened logo mid-blue */
+  --primary: #6cb2e6;
+  --primary-foreground: #0a1a2b;
+  --primary-muted: rgba(108, 178, 230, 0.14);
+
+  /* Secondary accent: logo light bar */
+  --accent: #aacee7;
+  --accent-foreground: #0a1a2b;
+  --accent-muted: rgba(170, 206, 231, 0.12);
+
+  --secondary: #131b29;
+  --secondary-foreground: #e2e8f0;
+  --muted: #111927;
+  --muted-foreground: #8b98ab;
+
+  --success: #34d399;
+  --warning: #fbbf24;
+  --destructive: #f87171;
+  --destructive-foreground: #f8fafc;
+
+  --border: rgba(148, 163, 184, 0.14);
+  --border-strong: rgba(148, 163, 184, 0.3);
+  --input: rgba(148, 163, 184, 0.22);
+  --ring: #6cb2e6;
+
+  color-scheme: dark;
+}
+
+@theme {
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-heading: var(--font-space-grotesk), -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Fluid type scale ~ clamp() keeps hierarchy proportional at every viewport */
+  --text-display: clamp(2.5rem, 6vw, 4.5rem);
+  --text-h1: clamp(2rem, 4.5vw, 3.25rem);
+  --text-h2: clamp(1.5rem, 3.2vw, 2.25rem);
+  --text-h3: clamp(1.2rem, 2.4vw, 1.6rem);
+  --text-body-lg: 1.125rem;
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-raised: var(--raised);
+  --color-overlay: var(--overlay);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-muted: var(--primary-muted);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-muted: var(--accent-muted);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 0.125rem);
+  --radius-sm: calc(var(--radius) - 0.25rem);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+}
+
+/* Global keyboard focus ~ visible accent ring everywhere, always */
+:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Skip-to-content link: visible on keyboard focus only */
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  background: var(--primary);
+  color: var(--primary-foreground);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.625rem 1rem;
+  border-radius: var(--radius-md);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus-visible {
+  top: 1rem;
+  outline: 2px solid var(--foreground);
+}
+
+/* Signature mono-label recipe: JetBrains Mono, uppercase, tracked ~ the brand voice */
+@utility mono-label {
+  font-family: var(--font-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+
+/* Instrument panel grid texture ~ static gradients, zero runtime cost.
+   Light default uses ink lines; .dark overrides with slate/cyan glow. */
+.instrument-grid {
+  background-size: 40px 40px;
+  background-image:
+    linear-gradient(to right, rgba(70, 80, 108, 0.09) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(70, 80, 108, 0.09) 1px, transparent 1px);
+}
+
+.dark .instrument-grid {
+  background-image:
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
+}
+
+.instrument-grid-dense {
+  background-size: 20px 20px;
+  background-image:
+    linear-gradient(to right, rgba(30, 108, 180, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(30, 108, 180, 0.08) 1px, transparent 1px);
+}
+
+.dark .instrument-grid-dense {
+  background-image:
+    linear-gradient(to right, rgba(108, 178, 230, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(108, 178, 230, 0.07) 1px, transparent 1px);
+}
+
+/* Hairline section divider with crosshair corner ticks */
+.section-divider {
+  position: relative;
+  border-top: 1px solid var(--border);
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 7px;
+  height: 7px;
+  border-color: var(--border-strong);
+  border-style: solid;
+}
+
+.section-divider::before {
+  left: 0;
+  border-width: 0 1px 1px 0;
+}
+
+.section-divider::after {
+  right: 0;
+  border-width: 0 0 1px 1px;
+}
+
+/* Rich text body for MDX articles and legal copy ~ token-driven, no plugin */
+.rich-text {
+  color: var(--muted-foreground);
+  line-height: 1.75;
+}
+
+.rich-text>*+* {
+  margin-top: 1.25rem;
+}
+
+.rich-text h2 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: var(--text-h2);
+  font-weight: 700;
+  color: var(--foreground);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.5rem;
+  margin-top: 2.5rem;
+}
+
+.rich-text h3 {
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  font-size: var(--text-h3);
+  font-weight: 600;
+  color: var(--foreground);
+  margin-top: 2rem;
+}
+
+.rich-text p,
+.rich-text li {
+  color: var(--muted-foreground);
+}
+
+.rich-text strong {
+  color: var(--foreground);
+}
+
+.rich-text a {
+  color: var(--primary);
+  text-underline-offset: 4px;
+}
+
+.rich-text a:hover {
+  text-decoration: underline;
+}
+
+.rich-text ul,
+.rich-text ol {
+  padding-left: 1.5rem;
+}
+
+.rich-text ul {
+  list-style: disc;
+}
+
+.rich-text ol {
+  list-style: decimal;
+}
+
+.rich-text code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  color: var(--primary);
+  background: var(--secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 0.125rem 0.375rem;
+}
+
+/* Consistent section rhythm: mobile → desktop */
+@utility section-pad {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+  @media (min-width: 1024px) {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+  }
+}
+
+/* Radix overlay + content transitions (no animation plugin needed) */
+@keyframes overlay-show {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes content-show {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes sheet-in-right {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+.radix-overlay[data-state="open"] {
+  animation: overlay-show 0.25s ease-out;
+}
+
+.radix-content[data-state="open"] {
+  animation: content-show 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.sheet-panel[data-state="open"] {
+  animation: sheet-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Single ambient loop in the system: status dot pulse */
+@keyframes status-pulse {
+
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.5);
+  }
+
+  50% {
+    opacity: 0.75;
+    box-shadow: 0 0 0 4px rgba(52, 211, 153, 0);
+  }
+}
+
+.status-pulse {
+  animation: status-pulse 2.4s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .status-pulse {
+    animation: none;
+  }
+}
+
+/* Custom scrollbar ~ telemetry feel */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}
+
+::selection {
+  background: var(--primary-muted);
+  color: var(--primary);
+}

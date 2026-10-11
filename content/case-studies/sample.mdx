@@ -1,0 +1,61 @@
+---
+title: "Real-Time Telemetry & Warehouse Migration for Helion Logistics"
+slug: "sample"
+client: "Helion Global Logistics"
+sector: "Supply Chain & Freight Tech"
+timeframe: "12 Weeks (Audit to Production Cutover)"
+featured: true
+draft: true
+stack:
+  - "PostgreSQL CDC"
+  - "Apache Kafka"
+  - "dbt Core"
+  - "Snowflake"
+  - "Next.js 15"
+  - "Tailwind CSS"
+challenge: "Helion managed over 140,000 intermodal shipping shipments daily across North America. Their legacy SQL Server infrastructure suffered from 4-hour batch replication lag, frequent deadlock crashes during peak port hours, and inconsistent freight margin figures across executive reports."
+summary: "Quintence re-architected Helion's ingestion topology into a sub-minute streaming pipeline, migrated dimensional models to Snowflake with dbt, and shipped a mission-control dispatcher console."
+results:
+  - label: "Replication Freshness"
+    value: "< 45s"
+    description: "Reduced from 4.2-hour batch intervals"
+  - label: "Dead-Letter Rate"
+    value: "0.001%"
+    description: "99.999% message delivery across 12M daily events"
+  - label: "Annual Cloud Compute Savings"
+    value: "$240,000"
+    description: "Achieved via partition pruning and incremental dbt models"
+  - label: "Report Generation Latency"
+    value: "1.2s"
+    description: "Down from 180s+ warehouse timeouts"
+---
+
+## The Challenge: Legacy Batch Fragility Under Rapid Growth
+
+Helion Logistics had scaled freight volume by 320% over eighteen months. However, their underlying data architecture remained bound to a single monolithic relational database that was simultaneously handling operational transactional queries and heavy analytical rollups.
+
+During peak port congestion hours, long-running finance reporting queries locked core tables, triggering cascading timeouts in the dispatch operations system. Key stakeholders were routinely looking at freight margin figures that were four to six hours out of date, leading to under-priced spot quotes and delayed driver reassignments.
+
+## The Architectural Solution
+
+Quintence partnered directly with Helion's VP of Engineering and Operations Leads to implement a three-tiered modernization strategy without disrupting active dispatch operations.
+
+### 1. Zero-Impact Change Data Capture (CDC)
+We deployed Debezium connectors alongside Apache Kafka to stream transaction logs out of operational databases with near-zero overhead on production workloads. Ingestion events were serialized in Avro format with strict schema registry contracts.
+
+### 2. Idempotent Modeling with dbt & Snowflake
+We structured warehouse storage into medallion layers:
+- **Bronze (Raw Append-Only)**: Ingested Kafka topic dumps preserved for auditing.
+- **Silver (Cleaned & Deduplicated)**: Standardized timestamp schemas with automated row-level validation rules.
+- **Gold (Dimensional Marts)**: Star-schema fact tables pre-aggregating carrier performance, route profitability, and detention fees.
+
+### 3. Mission-Control Dispatcher Console
+To close the loop from pipeline to operational action, we engineered a dedicated Next.js web application for terminal operators. The console delivers live route telemetry, SLA threshold warnings, and automated carrier recommendation scoring.
+
+## Verified Production Outcomes
+
+Following a zero-downtime cutover weekend, Helion observed immediate improvements across latency, reliability, and executive confidence:
+
+- **Sub-Minute Visibility**: Dispatchers now observe vehicle check-ins and dock arrival stamps within 45 seconds of occurrence.
+- **Operational Resilience**: Over a 90-day post-launch audit, the pipeline processed over 1.1 billion events with zero unhandled drop-offs.
+- **Immediate ROI**: Cloud compute optimization and automated warehouse auto-suspend policies cut monthly warehouse billing by 42%.

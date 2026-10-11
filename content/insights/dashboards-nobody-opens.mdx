@@ -1,0 +1,32 @@
+---
+title: "Dashboards nobody opens"
+slug: "dashboards-nobody-opens"
+description: "A dashboard isn't successful because it exists. It's successful because a decision changed. Most dashboards fail that test."
+publishedAt: "2026-09-29"
+---
+
+{/* DRAFT PROSE: expanded from the locked outline ~ mandatory human edit before launch. */}
+
+A dashboard isn't successful because it exists. It's successful because a decision changed. Most dashboards fail that test.
+
+## The symptom
+
+You know this dashboard. The execs export CSVs from it instead of reading it. It gets "reported to" in meetings rather than used in them. Someone built forty charts, and the company runs on three screenshots in a slide deck.
+
+Usage analytics would tell the story plainly: a long tail of charts nobody has opened in months, maintained by pipelines nobody dares to touch. The dashboard isn't a product. It's a monument.
+
+## The root cause
+
+Metric definitions get invented at chart time, not agreed beforehand. Each chart author makes reasonable local choices ~ this filter, that date boundary, this exclusion ~ and the dashboard becomes a museum of forty slightly different truths.
+
+Nobody did this on purpose. It happens because the project started from available data ("what can we chart?") instead of from pending decisions ("what must we decide Monday morning?"). Data-first scoping guarantees chart sprawl.
+
+## The fix
+
+Start from the Monday-morning question. For each decision, name the metric, its definition, and its owner ~ before touching a charting tool. Put those definitions in one semantic layer so every chart inherits them instead of inventing them.
+
+Then delete charts that answer nothing. Deletion is the highest-leverage dashboard feature: every removed chart is one fewer definition to maintain and one fewer pipeline nobody understands.
+
+## Scoping by decisions, not data sources
+
+This is how we scope dashboard projects: we list the decisions first, then work backward to the minimum data that serves them. Sources that serve no decision get cut from scope ~ politely, explicitly, in writing. The result is usually a third of the charts and all of the usage.

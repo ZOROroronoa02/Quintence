@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <!-- Quintence OG image template ~ 1200x630, dark, wordmark + positioning line -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0A0E14"/>
+      <stop offset="55%" stop-color="#0E141E"/>
+      <stop offset="100%" stop-color="#05080C"/>
+    </linearGradient>
+    <linearGradient id="steelBlue" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#5DA1D3"/>
+      <stop offset="100%" stop-color="#AACEE7"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(148,163,184,0.05)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#grid)"/>
+  <circle cx="880" cy="180" r="280" fill="#5DA1D3" opacity="0.07"/>
+  <circle cx="260" cy="520" r="220" fill="#AACEE7" opacity="0.06"/>
+
+  <!-- Status pill -->
+  <rect x="100" y="96" width="330" height="40" rx="20" fill="#131B29" stroke="rgba(148,163,184,0.3)" stroke-width="1"/>
+  <circle cx="126" cy="116" r="6" fill="#34D399"/>
+  <text x="146" y="122" font-family="monospace" font-size="15" font-weight="700" fill="#F1F5F9" letter-spacing="3">[ 01 ] QUINTENCE STUDIO</text>
+
+  <!-- Wordmark + positioning -->
+  <text x="100" y="262" font-family="Verdana, sans-serif" font-size="88" font-weight="bold" fill="#F1F5F9" letter-spacing="4">QUINTENCE</text>
+  <text x="100" y="348" font-family="Verdana, sans-serif" font-size="44" font-weight="bold" fill="url(#steelBlue)" letter-spacing="2">FROM PIPELINE TO LAUNCH.</text>
+  <text x="100" y="412" font-family="Verdana, sans-serif" font-size="22" fill="#8B98AB">Boutique Data &amp; Digital Engineering Studio</text>
+
+  <!-- Telemetry strip -->
+  <line x1="100" y1="492" x2="1100" y2="492" stroke="rgba(148,163,184,0.3)" stroke-width="1"/>
+  <text x="100" y="536" font-family="monospace" font-size="17" fill="#5DA1D3">SLA 99.98% UPTIME</text>
+  <text x="420" y="536" font-family="monospace" font-size="17" fill="#8B98AB">45+ PRODUCTION DEPLOYMENTS</text>
+  <text x="830" y="536" font-family="monospace" font-size="17" fill="#AACEE7">DIRECT PRINCIPAL ARCHITECTS</text>
+</svg>

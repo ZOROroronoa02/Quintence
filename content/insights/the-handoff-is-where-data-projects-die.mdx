@@ -1,0 +1,36 @@
+---
+title: "The handoff is where data projects die"
+slug: "the-handoff-is-where-data-projects-die"
+description: "Most data projects don't fail at the technology. They fail at the seam between the people who build the pipeline and the people who ship the product."
+publishedAt: "2026-09-22"
+---
+
+{/* DRAFT PROSE: expanded from the locked outline ~ mandatory human edit before launch. */}
+
+Most data projects don't fail at the technology. They fail at the seam between the people who build the pipeline and the people who ship the product.
+
+## The pattern
+
+It usually goes like this. The pipeline team finishes: warehouse modeled, dashboards delivered, docs written. Then the product team starts ~ and discovers the pipeline answers slightly different questions than the product needs. Timestamps mean different things. IDs don't join. Freshness is "daily" when the feature needs "hourly."
+
+Nobody did bad work. The work was just done on opposite sides of a wall, and context leaked through every handoff. By the time the product ships, it has quietly rebuilt half the pipeline's logic in application code ~ untested, undocumented, and drifting.
+
+## Three symptoms
+
+**Duplicated metric logic.** The same revenue definition lives in dbt and in a product service, written months apart by people who never met. They agree until the day they don't.
+
+**The dashboard number ≠ the app number.** Leadership sees one figure on Monday; customers see another in the product. Both are "correct" under different definitions nobody wrote down.
+
+**Nobody owns freshness.** The pipeline team monitors job success. The product team assumes data is fresh. Neither watches the actual question: is the number on this screen current?
+
+## What one owner looks like
+
+One team holding schema, pipeline, and UI changes the physics. The schema becomes a contract both sides code against. Metric definitions live in dbt and are imported ~ not reimplemented ~ by product code. And one team is on call for the whole path, so a freshness regression pages someone who can fix it end to end.
+
+This is the entire reason Quintence is shaped the way it is: a small senior team that refuses to hand work to itself across a wall.
+
+## When teams can't merge
+
+Sometimes you can't merge the teams ~ and that's fine, as long as you merge the contract. Three practices carry most of the weight: definition tests that assert pipeline outputs match product expectations, joint reviews where both sides look at the same numbers before launch, and a short contract doc that states freshness, grain, and ownership for every shared dataset.
+
+Walls are organizational facts. Leaks are a choice.
