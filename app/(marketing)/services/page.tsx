@@ -5,11 +5,10 @@
  */
 
 import type { Metadata } from "next";
-import { SectionHeader } from "@/components/system/SectionHeader";
+import { PageHero } from "@/components/system/PageHero";
 import { ServiceCard } from "@/components/sections/ServiceCard";
 import { Reveal } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
-import { GridTexture } from "@/components/system/GridTexture";
 import { getAllServices } from "@/lib/mdx";
 import { siteConfig } from "@/lib/config";
 
@@ -51,17 +50,12 @@ export default async function ServicesPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <section className="relative overflow-hidden border-b border-border">
-        <GridTexture />
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <SectionHeader
-            index="01"
-            kicker="Services"
-            title="From raw data to shipped product"
-            lede="Five services that hand off to each other seamlessly ~ because the same team owns all of them."
-          />
-        </div>
-      </section>
+      <PageHero
+        index="01"
+        kicker="Services"
+        title="From raw data to shipped product"
+        lede="Five services that hand off to each other seamlessly ~ because the same team owns all of them."
+      />
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
           {services.map((service, i) => (

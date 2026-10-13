@@ -73,8 +73,11 @@ export const contactSchema = z.object({
     .string()
     .min(20, { message: "Message must be at least 20 characters." })
     .max(2000, { message: "Message must be under 2000 characters." }),
-  // Honeypot ~ real users never fill this; bots do. Checked server-side.
-  website: z.string().optional(),
+  // Honeypot — real users never fill this; bots do. Checked server-side.
+  // Named `extra_notes` (NOT `website`/`url`): those are recognized
+  // browser-autofill tokens, and autofill filling the trap caused silent
+  // drops of genuine human submissions. See route.ts trap check.
+  extra_notes: z.string().optional(),
 });
 
 export type ContactValues = z.infer<typeof contactSchema>;

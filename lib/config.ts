@@ -15,7 +15,21 @@ export const siteConfig: SiteConfig = {
   ogImage: "/og?title=From%20pipeline%20to%20launch&kicker=QUINTENCE",
   creator: "@quintencestudio",
   contactEmail: "hello@quintence.help",
-  officeLocation: "Gurrugram ~ Noida, IN & Remote Worldwide",
+  officeLocation: "Gurugram & Noida, IN & Remote Worldwide",
+  offices: [
+    {
+      city: "Gurugram",
+      phone: "+91-9560483768",
+      phoneHref: "tel:+919560483768",
+      lines: ["S-30 First Floor, Sarasvati Complex", "Sector-28, Gurugram"],
+    },
+    {
+      city: "Noida",
+      phone: "+91-9522692877",
+      phoneHref: "tel:+919522692877",
+      lines: ["A-402, Rejoice Tower, Sikka Karmic Green", "Sector 78, Noida"],
+    },
+  ],
   bookingUrl: "https://cal.com/QUINTENCEHELPS",
 
   mainNav: [

@@ -7,8 +7,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { SectionHeader } from "@/components/system/SectionHeader";
-import { GridTexture } from "@/components/system/GridTexture";
+import { PageHero } from "@/components/system/PageHero";
 import { Reveal } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { getAllInsights } from "@/lib/mdx";
@@ -53,16 +52,7 @@ export default async function InsightsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <section className="relative overflow-hidden border-b border-border">
-        <GridTexture />
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <SectionHeader
-            index="01"
-            kicker="Insights"
-            title="Notes from the whole stack."
-          />
-        </div>
-      </section>
+      <PageHero index="01" kicker="Insights" title="Notes from the whole stack." />
 
       <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="divide-y divide-border border-y border-border">

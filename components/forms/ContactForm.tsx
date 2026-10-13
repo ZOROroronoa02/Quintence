@@ -54,7 +54,7 @@ export function ContactForm() {
     formState: { errors },
   } = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
-    defaultValues: { name: "", email: "", company: "", budget: undefined, message: "", website: "" },
+    defaultValues: { name: "", email: "", company: "", budget: undefined, message: "", extra_notes: "" },
   });
 
   React.useEffect(() => {
@@ -145,10 +145,13 @@ export function ContactForm() {
   return (
     <div className="relative w-full rounded-xl border border-border bg-card p-6 sm:p-10">
       <form onSubmit={handleSubmit(onSubmit, onInvalid)} className="space-y-6" noValidate>
-        {/* Honeypot ~ invisible to humans, irresistible to bots */}
+        {/* Honeypot ~ invisible to humans, irresistible to bots.
+            Named `extra_notes`, never `website`: `website` is a recognized
+            browser-autofill token, and autofill filling the trap silently
+            dropped genuine human submissions. */}
         <div aria-hidden="true" className="absolute -left-[9999px] top-0 h-px w-px overflow-hidden opacity-0">
-          <label htmlFor="website">Website</label>
-          <input id="website" type="text" autoComplete="off" tabIndex={-1} {...register("website")} />
+          <label htmlFor="extra_notes">Leave this field blank</label>
+          <input id="extra_notes" type="text" autoComplete="off" tabIndex={-1} {...register("extra_notes")} />
         </div>
 
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
@@ -159,7 +162,7 @@ export function ContactForm() {
             <Input
               id="name"
               autoComplete="name"
-              placeholder="Ada Lovelace"
+              placeholder="Full Name"
               aria-required="true"
               aria-invalid={!!errors.name}
               aria-describedby={describedBy("name", !!errors.name)}
@@ -176,7 +179,7 @@ export function ContactForm() {
               id="email"
               type="email"
               autoComplete="email"
-              placeholder="ada@company.com"
+              placeholder="Please Enter Your Mail"
               aria-required="true"
               aria-invalid={!!errors.email}
               aria-describedby={describedBy("email", !!errors.email)}
@@ -192,7 +195,7 @@ export function ContactForm() {
             <Input
               id="company"
               autoComplete="organization"
-              placeholder="Analytical Engines Inc."
+              placeholder="Company Name"
               aria-invalid={!!errors.company}
               aria-describedby={describedBy("company", !!errors.company)}
               {...register("company")}
@@ -239,7 +242,7 @@ export function ContactForm() {
           <Textarea
             id="message"
             rows={5}
-            placeholder="Where does the pipeline hurt? What have you tried? What does done look like?"
+            placeholder="Please describe your project or the message you want to convey."
             aria-required="true"
             aria-invalid={!!errors.message}
             aria-describedby={describedBy("message", !!errors.message)}

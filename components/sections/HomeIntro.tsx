@@ -1,9 +1,9 @@
 /**
  * @file components/sections/HomeIntro.tsx
- * @description Minimal 4s home intro loader. Wordmark + thin progress bar,
- * once per session (sessionStorage). Skippable via button/Esc, honors
+ * @description Minimal 3s home intro loader. Wordmark + thin progress bar,
+ * plays on every home-page visit. Skippable via button/Esc, honors
  * reduced-motion (renders nothing), locks scroll while visible. Content
- * underneath stays server-rendered for SEO ~ this is a client overlay only.
+ * underneath stays server-rendered for SEO — this is a client overlay only.
  */
 
 "use client";
@@ -12,8 +12,7 @@ import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import { Logo } from "@/components/brand/Logo";
 
-const STORAGE_KEY = "quintence-intro-seen";
-const TOTAL_MS = 4000;
+const TOTAL_MS = 3000;
 
 export function HomeIntro() {
   const prefersReduced = useReducedMotion();
@@ -23,13 +22,6 @@ export function HomeIntro() {
 
   React.useEffect(() => {
     if (prefersReduced) return;
-    let seen = false;
-    try {
-      seen = window.sessionStorage.getItem(STORAGE_KEY) === "1";
-    } catch {
-      seen = false;
-    }
-    if (seen) return;
     setVisible(true);
 
     const originalOverflow = document.body.style.overflow;
@@ -54,11 +46,6 @@ export function HomeIntro() {
   const handleExitComplete = React.useCallback(() => {
     setDismissed(true);
     document.body.style.overflow = "";
-    try {
-      window.sessionStorage.setItem(STORAGE_KEY, "1");
-    } catch {
-      /* private mode ~ intro simply replays next session */
-    }
   }, []);
 
   const skip = React.useCallback(() => setVisible(false), []);

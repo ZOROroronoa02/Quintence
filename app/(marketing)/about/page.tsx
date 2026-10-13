@@ -6,8 +6,8 @@
 
 import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
+import { PageHero } from "@/components/system/PageHero";
 import { SectionHeader } from "@/components/system/SectionHeader";
-import { GridTexture } from "@/components/system/GridTexture";
 import { Reveal } from "@/components/motion/Reveal";
 import { CTA } from "@/components/sections/CTA";
 import { siteConfig } from "@/lib/config";
@@ -73,16 +73,11 @@ const STACK = {
 export default function AboutPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <GridTexture />
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <SectionHeader
-            index="01"
-            kicker="About"
-            title="The wall between your pipeline and your product ~ removed."
-          />
-        </div>
-      </section>
+      <PageHero
+        index="01"
+        kicker="About"
+        title="The wall between your pipeline and your product ~ removed."
+      />
 
       {/* Story */}
       <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">

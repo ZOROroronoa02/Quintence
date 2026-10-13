@@ -5,16 +5,16 @@
  */
 
 import Link from "next/link";
-import { Github, Linkedin, Twitter, Mail } from "lucide-react";
+import { Github, Linkedin, Mail } from "lucide-react";
+import { XIcon } from "@/components/brand/XIcon";
 import { siteConfig } from "@/lib/config";
 import { Logo } from "@/components/brand/Logo";
-import { StatusDot } from "@/components/system/StatusDot";
 import packageJson from "@/package.json";
 
 const socialIcons = {
   github: Github,
   linkedin: Linkedin,
-  twitter: Twitter,
+  twitter: XIcon,
   email: Mail,
 } as const;
 

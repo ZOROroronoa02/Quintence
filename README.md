@@ -191,11 +191,11 @@ pnpm dlx vercel deploy
 Or connect the GitHub repository to a Vercel project with the root set to this directory.
 
 **Required Vercel Environment Variables** (dashboard → project → Settings → Environment Variables; production + preview):
-- `NEXT_PUBLIC_SITE_URL` ~ Production domain, no trailing slash (e.g. `https://quintence.io`). Local dev falls back to the same value; override in `.env.local` only if testing canonicals locally.
-- `RESEND_API_KEY` ~ Contact form delivery (Vercel only; never commit).
-- `CONTACT_TO_EMAIL` / `CONTACT_FROM_EMAIL` ~ Inbox and verified sender.
+- `NEXT_PUBLIC_SITE_URL` ~ Production domain, no trailing slash (e.g. `https://quintence.help`). Local dev falls back to the same value; override in `.env.local` only if testing canonicals locally.
+- `GMAIL_USER` / `GMAIL_APP_PASSWORD` ~ Gmail SMTP sender + App Password (Google Account → Security → 2-Step Verification → App passwords). Never commit.
+- `CONTACT_TO_EMAIL` ~ Inbox that receives inquiry notifications.
 
-Local `.env.local` mirrors the same four keys (see `.env.example`).
+Local `.env.local` mirrors the same keys (see `.env.example`).
 
 ---
 
@@ -253,6 +253,6 @@ Tighten `script-src` (nonce the JSON-LD, drop `unsafe-inline`) before enforcing.
 
 ## 📧 Contact
 
-**Studio:** hello@quintence.io  
-**Location:** San Francisco, CA & Remote Worldwide  
-**Website:** [quintence.io](https://quintence.io)
+**Studio:** hello@quintence.help  
+**Location:** Gurugram ~ Noida, IN & Remote Worldwide  
+**Website:** [quintence.help](https://quintence.help)

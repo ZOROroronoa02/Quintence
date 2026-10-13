@@ -7,8 +7,11 @@
  * → 2-Step Verification → App passwords).
  *
  * Contract: 200 {ok:true} · 422 {ok:false, errors} · 502 Gmail failure ·
- * 503 email service unconfigured. No rate limiting in v1 (honeypot only —
+ * 503 email service unconfigured. No rate limiting in v1 (honeypot only -
  * serverless in-memory limits lie; see README).
+ *
+ * GET returns a no-secrets health check (is SMTP configured + which inbox
+ * receives notifications) for debugging delivery issues in previews.
  */
 
 import { NextRequest, NextResponse } from "next/server";
@@ -25,6 +28,14 @@ type ErrorBody = { ok: false; message?: string; errors?: Record<string, string> 
 
 const FAILURE_MESSAGE = `Something went wrong sending your inquiry. Please email us directly at ${siteConfig.contactEmail}.`;
 
+export async function GET(): Promise<NextResponse<{ ok: boolean; configured: boolean; inbox: string | null }>> {
+  const to = process.env.CONTACT_TO_EMAIL;
+  const configured = Boolean(process.env.GMAIL_USER && process.env.GMAIL_APP_PASSWORD && to);
+  // CONTACT_TO_EMAIL is already public (printed on the contact page), so
+  // echoing it here is safe - and it exposes inbox typos instantly.
+  return NextResponse.json({ ok: true, configured, inbox: to ?? null });
+}
+
 export async function POST(request: NextRequest): Promise<NextResponse<SuccessBody | ErrorBody>> {
   let raw: unknown;
   try {
@@ -33,10 +44,12 @@ export async function POST(request: NextRequest): Promise<NextResponse<SuccessBo
     return NextResponse.json({ ok: false, message: "Invalid request body." }, { status: 422 });
   }
 
-  // Honeypot first: bots fill `website`; humans never see it. Silent 200,
-  // server-side log only ~ never tip off the bot.
+  // Honeypot first: bots fill `extra_notes`; humans never see it. Silent 200,
+  // server-side log only — never tip off the bot. (Field is deliberately NOT
+  // named `website`: that is a browser-autofill token and autofill filling it
+  // silently dropped real human submissions.)
   if (typeof raw === "object" && raw !== null) {
-    const trap = (raw as Record<string, unknown>).website;
+    const trap = (raw as Record<string, unknown>).extra_notes;
     if (typeof trap === "string" && trap.length > 0) {
       console.warn("[contact] honeypot hit ~ bot submission dropped silently");
       return NextResponse.json({ ok: true }, { status: 200 });
@@ -58,7 +71,7 @@ export async function POST(request: NextRequest): Promise<NextResponse<SuccessBo
   const to = process.env.CONTACT_TO_EMAIL;
 
   if (!gmailUser || !gmailAppPassword || !to) {
-    console.error("[contact] email service unconfigured — missing GMAIL_USER, GMAIL_APP_PASSWORD, or CONTACT_TO_EMAIL");
+    console.error("[contact] email service unconfigured - missing GMAIL_USER, GMAIL_APP_PASSWORD, or CONTACT_TO_EMAIL");
     return NextResponse.json({ ok: false, message: FAILURE_MESSAGE }, { status: 503 });
   }
 
@@ -86,8 +99,12 @@ export async function POST(request: NextRequest): Promise<NextResponse<SuccessBo
       from: sender,
       to,
       replyTo: email,
-      subject: `New inquiry — ${name} (${budget})`,
+      subject: `New inquiry - ${name} (${budget})`,
       html: notificationHtml,
+    }).then((info) => {
+      // messageId lets you prove delivery: search Gmail for
+      // rfc822msgid:<messageId> (without brackets).
+      console.log(`[contact] notification sent to ${to} (messageId=${info.messageId})`);
     });
   } catch (error) {
     console.error("[contact] notification send failed:", error);
@@ -107,8 +124,10 @@ export async function POST(request: NextRequest): Promise<NextResponse<SuccessBo
     await transporter.sendMail({
       from: sender,
       to: email,
-      subject: "Got it — we'll reply within one business day",
+      subject: "Got it - we'll reply within one business day",
       html: replyHtml,
+    }).then((info) => {
+      console.log(`[contact] auto-reply sent to ${email} (messageId=${info.messageId})`);
     });
   } catch (error) {
     console.error("[contact] auto-reply send failed (inquiry was captured):", error);

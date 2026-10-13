@@ -5,10 +5,10 @@
  */
 
 import type { Metadata } from "next";
+import { MapPin, Phone } from "lucide-react";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { SectionHeader } from "@/components/system/SectionHeader";
+import { PageHero } from "@/components/system/PageHero";
 import { StatusDot } from "@/components/system/StatusDot";
-import { GridTexture } from "@/components/system/GridTexture";
 import { siteConfig } from "@/lib/config";
 
 export const metadata: Metadata = {
@@ -41,18 +41,14 @@ const NEXT_STEPS = [
 export default function ContactPage() {
   return (
     <>
-      <section className="relative overflow-hidden border-b border-border">
-        <GridTexture />
-        <div className="relative mx-auto max-w-7xl space-y-6 px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <SectionHeader
-            index="01"
-            kicker="Contact"
-            title="Tell us where the pipeline hurts."
-            lede="One call to scope it. We reply within one business day ~ with questions, not a brochure."
-          />
-          <StatusDot label="Accepting new projects" />
-        </div>
-      </section>
+      <PageHero
+        index="01"
+        kicker="Contact"
+        title="Tell us where the pipeline hurts."
+        lede="One call to scope it. We reply within one business day ~ with questions, not a brochure."
+      >
+        <StatusDot label="Accepting new projects" />
+      </PageHero>
 
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-12 lg:gap-16">
@@ -80,6 +76,39 @@ export default function ContactPage() {
                 {siteConfig.contactEmail}
               </a>
               <p className="mono-label text-[11px] text-muted-foreground">{siteConfig.officeLocation}</p>
+            </div>
+            <div className="space-y-4">
+              <h2 className="mono-label text-[12px] text-primary">Call or visit</h2>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+                {siteConfig.offices.map((office) => (
+                  <address
+                    key={office.city}
+                    className="space-y-2 rounded-lg border border-border bg-card p-6 not-italic"
+                  >
+                    <p className="mono-label flex items-center gap-1.5 text-[12px] text-foreground">
+                      <MapPin className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+                      <span>{office.city}</span>
+                    </p>
+                    <p className="text-sm leading-relaxed text-muted-foreground">
+                      Quintence
+                      <br />
+                      {office.lines.map((line) => (
+                        <span key={line}>
+                          {line}
+                          <br />
+                        </span>
+                      ))}
+                    </p>
+                    <a
+                      href={office.phoneHref}
+                      className="inline-flex items-center gap-1.5 font-mono text-sm text-foreground underline underline-offset-4 transition-colors hover:text-primary"
+                    >
+                      <Phone className="h-3.5 w-3.5 text-primary" aria-hidden="true" />
+                      <span>{office.phone}</span>
+                    </a>
+                  </address>
+                ))}
+              </div>
             </div>
           </div>
 

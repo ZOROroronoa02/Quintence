@@ -7,6 +7,8 @@
 
 "use client";
 
+import { siteConfig } from "@/lib/config";
+
 export default function GlobalError({
   error,
   reset,
@@ -46,7 +48,7 @@ export default function GlobalError({
           </h1>
           <p style={{ color: "#8B98AB", maxWidth: "480px" }}>
             Something broke on our side. Try again ~ if it keeps failing, email
-            hello@quintence.io. Error: {error.digest ?? error.message}
+            {siteConfig.contactEmail}. Error: {error.digest ?? error.message}
           </p>
           <div style={{ marginTop: "24px", display: "flex", gap: "12px", justifyContent: "center" }}>
             <button

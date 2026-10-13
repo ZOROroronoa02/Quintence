@@ -5,10 +5,9 @@
  */
 
 import type { Metadata } from "next";
-import { SectionHeader } from "@/components/system/SectionHeader";
+import { PageHero } from "@/components/system/PageHero";
 import { WorkIndex } from "@/components/sections/WorkIndex";
 import { CTA } from "@/components/sections/CTA";
-import { GridTexture } from "@/components/system/GridTexture";
 import { getAllCaseStudies } from "@/lib/mdx";
 import { siteConfig } from "@/lib/config";
 
@@ -50,17 +49,12 @@ export default async function WorkPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
-      <section className="relative overflow-hidden border-b border-border">
-        <GridTexture />
-        <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
-          <SectionHeader
-            index="01"
-            kicker="Selected work"
-            title="Projects, end to end"
-            lede="Every engagement below went from first pipeline to shipped product. Numbers are from the first 90 days unless noted."
-          />
-        </div>
-      </section>
+      <PageHero
+        index="01"
+        kicker="Selected work"
+        title="Projects, end to end"
+        lede="Every engagement below went from first pipeline to shipped product. Numbers are from the first 90 days unless noted."
+      />
       <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
         <WorkIndex
           studies={studies.map((study) => ({ slug: study.slug, frontmatter: study.frontmatter }))}

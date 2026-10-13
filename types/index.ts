@@ -10,6 +10,13 @@ export interface NavItem {
   badge?: string;
 }
 
+export interface Office {
+  city: string;
+  phone: string;
+  phoneHref: string;
+  lines: string[];
+}
+
 export interface SocialLink {
   platform: "github" | "linkedin" | "twitter" | "email";
   url: string;
@@ -106,5 +113,6 @@ export interface SiteConfig {
   processSteps: ProcessStep[];
   contactEmail: string;
   officeLocation: string;
+  offices: Office[];
   bookingUrl: string;
 }

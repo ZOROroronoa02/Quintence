@@ -134,7 +134,7 @@ const getAllCaseStudiesCached = cache(
       const rawContent = await fs.promises.readFile(fullPath, "utf-8");
       const { data, content } = matter(rawContent);
 
-      // Drafts are skipped before validation ~ legacy or WIP files without the
+      // Drafts are skipped before validation - legacy or WIP files without the
       // Phase 4 schema never reach the parser and stay hidden everywhere.
       if (typeof data === "object" && data !== null && (data as Record<string, unknown>).draft === true) {
         continue;
@@ -174,7 +174,7 @@ export async function getCaseStudiesByService(
 
 /**
  * Returns the single case study flagged `featured: true` in frontmatter.
- * Home page only. Returns null when none is flagged ~ callers render nothing.
+ * Home page only. Returns null when none is flagged - callers render nothing.
  */
 export async function getFeaturedCaseStudy(): Promise<MDXDocument<CaseStudyFrontmatter> | null> {
   const studies = await getAllCaseStudies();
