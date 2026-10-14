@@ -11,6 +11,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   compress: true,
   poweredByHeader: false,
+  transpilePackages: ["next-mdx-remote"],
   images: {
     formats: ["image/avif", "image/webp"],
   },
